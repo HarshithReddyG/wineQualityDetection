@@ -1,0 +1,31 @@
+Initial dataset shape: (4898, 12)
+Missing values in each column:
+fixed acidity           0
+volatile acidity        0
+citric acid             0
+residual sugar          0
+chlorides               0
+free sulfur dioxide     0
+total sulfur dioxide    0
+density                 0
+pH                      0
+sulphates               0
+alcohol                 0
+quality                 0
+dtype: int64
+Number of duplicate rows: 937
+Dataset shape after removing duplicates: (3961, 12)
+Number of outliers removed: 325
+Dataset shape after removing outliers: (3636, 12)
+Log transformation applied to features: ['residual sugar', 'chlorides']
+Dropped features: free sulfur dioxide, citric acid
+Applied SMOTE for class imbalance.
+Class distribution after resampling:
+medium    2831
+high      2831
+low       2831
+Name: quality_category, dtype: int64
+Encoded target variable with mapping: {'high': 0, 'low': 1, 'medium': 2}
+Capped extreme outliers in 'chlorides'.
+Feature scaling applied to resampled data.
+Cleaned dataset saved at ../data/winequality-white-cleaned.csv

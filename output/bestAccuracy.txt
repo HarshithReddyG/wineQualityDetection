@@ -1,0 +1,17 @@
+Best Model: Stacking (RF + LightGBM)
+Accuracy: 91.35%
+Confusion Matrix:
+[[496   1  67]
+ [  0 563   0]
+ [ 77   2 493]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.87      0.88      0.87       564
+           1       0.99      1.00      1.00       563
+           2       0.88      0.86      0.87       572
+
+    accuracy                           0.91      1699
+   macro avg       0.91      0.91      0.91      1699
+weighted avg       0.91      0.91      0.91      1699
+
