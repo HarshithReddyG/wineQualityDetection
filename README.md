@@ -1,47 +1,114 @@
-Wine Quality Classification using Machine Learning Models
-Overview
-This project classifies wine quality into three categories: low, medium, and high. It leverages multiple machine learning models, including Logistic Regression, Random Forest, XGBoost, LightGBM, and Stacking, to evaluate their performance using metrics like accuracy, precision, recall, F1-score, and confusion matrix.
+# Wine Quality Prediction Using Machine Learning
 
-Dataset
-The dataset contains physicochemical properties of wine (e.g., acidity, sugar content, and pH) and a target variable (quality) ranging from 1 to 9. These quality scores are categorized into:
+## Overview
+This project predicts wine quality as **low**, **medium**, or **high** using a stacking model that combines **Random Forest** and **LightGBM**. The project workflow includes data preprocessing, model building, and visualizing results in a **Streamlit** application.
 
-Low (1–3): Poor quality wine.
-Medium (4–6): Average quality wine.
-High (7–9): High-quality wine.
-Workflow
-1. Data Preprocessing:
+## Workflow
+### 1. Data Preprocessing
+- **File:** `dataPreprocessing.py`
+- **Key Steps:**
+  1. Load and clean the dataset by removing duplicates and handling missing values.
+  2. Handle class imbalance using **SMOTE**.
+  3. Apply log transformations for skewed features.
+  4. Scale features using **StandardScaler**.
+  5. Save the scaler and feature names for consistent input handling.
+  6. Save the cleaned dataset as `winequality-white-cleaned.csv`.
 
-Loaded and cleaned the dataset by removing duplicates and handling outliers.
-Balanced class distribution using SMOTE to address imbalances.
-Applied log transformations to skewed features and scaled features for normalization.
-2. Model Building:
+- **Outputs:**
+  - `../data/winequality-white-cleaned.csv` (cleaned dataset)
+  - `../models/scaler.joblib` (scaler for feature scaling)
+  - `../models/feature_names.joblib` (feature names for consistency)
 
-Trained the following models:
-Logistic Regression: For baseline comparison.
-Random Forest: For feature importance and robust classification.
-XGBoost and LightGBM: Gradient boosting models for improved accuracy.
-Stacking: Combined predictions of Random Forest and LightGBM for optimal performance.
-3. Model Evaluation:
+### 2. Model Building
+- **File:** `modelbuilding.py`
+- **Key Steps:**
+  1. Train individual models: Logistic Regression, Random Forest, LightGBM.
+  2. Create a **Stacking Classifier** combining Random Forest and LightGBM, with Logistic Regression as the final estimator.
+  3. Evaluate all models and save the best one based on accuracy.
+  4. Save the stacking model as `stacking_model.joblib`.
 
-Evaluated each model using:
-Accuracy: Percentage of correct predictions.
-Precision, Recall, F1-Score: For detailed classification performance.
-Confusion Matrix: Visual representation of true vs. predicted classes.
-Identified the best-performing model based on accuracy.
-4. Visualization:
+- **Outputs:**
+  - `../models/stacking_model.joblib` (saved stacking model)
 
-Generated the following plots:
-Confusion matrices for each model.
-A bar chart comparing model accuracies.
-Key Features
-Class Balancing: Addressed class imbalance using SMOTE.
-Feature Scaling: Normalized features for consistent model performance.
-Hyperparameter Tuning: Optimized Random Forest for improved accuracy.
-Stacking Model: Combined predictions of multiple models for better performance.
-Evaluation Metrics
-Accuracy: Measures overall correct predictions.
-Precision: Proportion of positive predictions that are correct.
-Recall: Proportion of actual positives correctly identified.
-F1-Score: Harmonic mean of precision and recall.
-Confusion Matrix: Visualizes true vs. predicted classifications.
-This structured workflow ensures robust and transparent evaluation of models for wine quality classification.
+### 3. Streamlit App
+- **File:** `app.py`
+- **Key Features:**
+  1. Accepts user input for wine features through sliders.
+  2. Loads the saved scaler, feature names, and stacking model.
+  3. Scales user input and predicts wine quality.
+  4. Displays prediction probabilities with a bar chart.
+
+- **Commands:**
+  ```bash
+  streamlit run app.py
+  ```
+
+### 4. Visualizations
+- Feature distributions are visualized with boxplots.
+- Model comparison results are displayed with accuracy charts.
+- Confusion matrices for models are plotted and saved.
+
+## File Structure
+```
+WineQualityDetection/
+├── data/
+│   ├── winequality-white.csv
+│   └── winequality-white-cleaned.csv
+├── models/
+│   ├── scaler.joblib
+│   ├── feature_names.joblib
+│   └── stacking_model.joblib
+├── output/
+│   ├── dataPreprocessing/
+│   │   ├── logs.txt
+│   │   └── graphs/
+│   ├── logisticRegression/
+│   │   ├── results.txt
+│   │   └── graphs/
+│   ├── bestModelResults/
+│   │   ├── results.txt
+│   │   └── graphs/
+│   └── model_accuracy_comparison.png
+├── code/
+│   ├── dataPreprocessing.py
+│   ├── modelbuilding.py
+│   └── app.py
+└── README.md
+```
+
+## Key Features
+1. **Consistent Feature Handling:** Ensures feature names match between preprocessing and the app.
+2. **Stacking Model:** Combines the strengths of Random Forest and LightGBM.
+3. **Streamlit Visualization:** Interactive web app for predictions and results.
+4. **Modular Design:** Separate files for preprocessing, model building, and app logic.
+
+## How to Run
+1. **Preprocess the Data:**
+   ```bash
+   python dataPreprocessing.py
+   ```
+2. **Build Models:**
+   ```bash
+   python modelbuilding.py
+   ```
+3. **Run the Streamlit App:**
+   ```bash
+   streamlit run app.py
+   ```
+
+## Requirements
+- Python 3.9+
+- Required Libraries:
+  - pandas
+  - numpy
+  - scikit-learn
+  - imbalanced-learn
+  - joblib
+  - streamlit
+  - lightgbm
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
