@@ -10,7 +10,9 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 def preprocess_and_save(input_path="../data/winequality-white.csv", 
                         output_dataset="../data/winequality-white-cleaned.csv", 
-                        output_log="../output/dataPreprocessing/dataPreprocessing.txt"):
+                        output_log="../output/dataPreprocessing/dataPreprocessing.txt",
+                        output_scaler="../models/scaler.joblib",
+                        output_features="../models/feature_names.joblib"):
     
     # Create necessary directories
     os.makedirs("../output/dataPreprocessing/graphs", exist_ok=True)
@@ -88,6 +90,18 @@ def preprocess_and_save(input_path="../data/winequality-white.csv",
     # Apply feature scaling
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_resampled)
+
+    # Save the scaler
+    from joblib import dump
+    os.makedirs("../models", exist_ok=True)
+    dump(scaler, output_scaler)
+    print(f"Scaler saved at {output_scaler}")
+
+    feature_names = X.columns.tolist()
+    dump(feature_names, output_features)
+    print(f"Feature names saved at {output_features}")
+
+
     log_file.write("Feature scaling applied to resampled data.\n")
     
     # Save cleaned dataset
