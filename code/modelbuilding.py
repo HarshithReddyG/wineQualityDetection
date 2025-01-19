@@ -63,6 +63,12 @@ def build_models(X, y):
     predictions["Stacking (RF + LightGBM)"] = y_pred_stack
     accuracies["Stacking (RF + LightGBM)"] = accuracy_score(y_test, y_pred_stack)
 
+    # Save stacking model as a joblib file
+    from joblib import dump
+    os.makedirs("../models", exist_ok=True)
+    dump(stacking_model, "../models/stacking_model.joblib")
+    print("Stacking model saved at '../models/stacking_model.joblib'")
+
     # Return results
     return {
         "y_test": y_test,
