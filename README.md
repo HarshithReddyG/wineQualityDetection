@@ -12,7 +12,7 @@ This project predicts wine quality as **low**, **medium**, or **high** using a s
   3. Apply log transformations for skewed features.
   4. Scale features using **StandardScaler**.
   5. Save the scaler and feature names for consistent input handling.
-  6. Save the cleaned dataset as `winequality-white-cleaned.csv`.
+  6. Save the cleaned dataset as `winequality-white-cleaned.csv`.!
 
 - **Outputs:**
   - `../data/winequality-white-cleaned.csv` (cleaned dataset)
